@@ -9,32 +9,47 @@
             ConsoleKeyInfo cki;
             do
             {
-                var word = Console.ReadLine();
-                TakeFirstLatter(word);
-
+                try
+                {
+                    var word = Console.ReadLine();
+                    var result = GetFirstLatter(word);
+                    Console.WriteLine(result);
+                }
+                catch (ArgumentNullException e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw;
+                }
+                
                 Console.WriteLine("Press Esc to exit or Enter to continue");
                 cki = Console.ReadKey();
 
             } while (cki.Key != ConsoleKey.Escape);
         }
 
-        private static void TakeFirstLatter(string word)
+        private static string GetFirstLatter(string word)
         {
             if (string.IsNullOrWhiteSpace(word))
             {
-                Console.WriteLine("The entered string cannot be empty");
-                return;
+                throw new ArgumentNullException(nameof(word), "Value can not be null.");
             }
 
             if (word.Substring(0,1).Equals(" "))
             {
-                Console.WriteLine("Space cannot be entered as the first character");
-                return;
+                throw new FormatException($"Incorrect string format. You cannot put a space as the first character {nameof(word)}.");
             }
 
-            var firstLatter = word.Substring(0, word.Length - (word.Length - 1));
-
-            Console.WriteLine(firstLatter);
+            return word.Substring(0, word.Length - (word.Length - 1));
         }
     }
 }
