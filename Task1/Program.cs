@@ -18,12 +18,12 @@
                 catch (ArgumentNullException e)
                 {
                     Console.WriteLine(e.Message);
-                    throw;
+                    //throw;
                 }
                 catch (FormatException e)
                 {
                     Console.WriteLine(e.Message);
-                    throw;
+                    //throw;
                 }
                 catch (Exception e)
                 {
